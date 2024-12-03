@@ -8,10 +8,16 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import { AppContextProvider } from './AppContext';
 import PrivateRoute from './components/PrivateRoute';
+import GoogleRedirected from './components/GoogleRedirected';
 
 const routes = createRoutesFromElements(  
   <>
     <Route path="/" element={<Home />} />,
+    
+    <Route path="oauth2">
+      <Route path="google/redirected" element={<GoogleRedirected />}  />
+    </Route>
+
     <Route path="/login" element={<Login />} />,
     <Route path="/register" element={<Register />} />
     <Route element={<PrivateRoute />}> 
