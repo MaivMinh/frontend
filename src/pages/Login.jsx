@@ -7,7 +7,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const { loggedIn, login, userData } = useContext(AppContext);
+  const { isAuthenticated, login, userData } = useContext(AppContext);
   const [loading, setLoading] = useState(null);
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ function Login() {
 
   return (
     <div className="max-w-md mx-auto mt-20 p-6 text-center border border-gray-300 rounded-lg shadow-md">
-      {loggedIn ? (
+      {isAuthenticated ? (
         <div>
           <h2 className="text-xl font-semibold text-green-600 mt-4">Hello again, {userData.name}!</h2>
           <p className="mt-2 text-gray-600">You are already logged in.</p>

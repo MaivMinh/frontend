@@ -5,7 +5,7 @@ import { AppContext } from '../AppContext';
 
 function Home() {
   const navigate = useNavigate();
-  const { logout, loggedIn, userData } = useContext(AppContext);
+  const { logout, isAuthenticated, userData } = useContext(AppContext);
 
   useEffect(() => {
   }, []);
@@ -26,7 +26,7 @@ function Home() {
   return (
     <div className="max-w-xl mx-auto mt-12 p-10 text-center border border-gray-300 rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Welcome to the Home Page</h1>
-      {loggedIn ? (
+      {isAuthenticated ? (
         <div className="p-6 bg-gray-100 rounded-lg">
           <h2 className="text-2xl font-semibold text-green-600 mb-4">Hello, you are logged in!</h2>
           <button
