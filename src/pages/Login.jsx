@@ -17,10 +17,9 @@ function Login() {
     setLoading(true);
     e.preventDefault();
     setError(null);
-
     try {
       const response = await fetch(
-        `${import.meta.env.REACT_APP_API_URL}/api/auth/login`,
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
@@ -36,8 +35,7 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log(data);
-      login(data.token);
+      login(data.accessToken, data.refreshToken);
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -152,6 +150,7 @@ function Login() {
                   ? "cursor-not-allowed px-4 py-2 bg-green-300 text-white font-medium rounded-lg"
                   : "px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600"
               }
+              onClick={handleSubmit}
             >
               Login
             </button>
