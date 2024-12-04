@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import facebook_icon from "../assets/facebook-icon.png";
+import google_icon from "../assets/google-icon.png";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -153,18 +155,13 @@ function Login() {
             >
               Login
             </button>
-            <button className="w-full mt-4 mb-8" onClick={facebookLogin}>
-              Login with Facebook 🚀
-            </button>
-            <div
-              onClick={redirectGoogleAuthPage}
-              className={
-                loading
-                  ? "cursor-not-allowed px-4 py-2 bg-green-300 text-white font-medium rounded-lg"
-                  : "px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 hover:cursor-pointer"
-              }
-            >
-              Login with google
+            <div className="flex flex-row gap-x-8 justify-center">
+              <button onClick={facebookLogin}>
+                <img src={facebook_icon} alt="facebook" className="w-[40px]" />
+              </button>
+              <button onClick={redirectGoogleAuthPage}>
+                <img src={google_icon} alt="google" className="w-[40px]" />
+              </button>
             </div>
           </form>
           {error && <p className="mt-4 text-red-500">{error}</p>}

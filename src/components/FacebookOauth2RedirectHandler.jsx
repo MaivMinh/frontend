@@ -15,9 +15,6 @@ const FacebookOauth2RedirectHandler = () => {
     const error = searchParams.get("error");
 
     if (authorizationCode) {
-      // Xử lý authorization code ở đây (ví dụ: gọi API back-end để hoàn tất đăng nhập)
-      console.log("Authorization Code:", authorizationCode);
-
       // Tạo form để lấy token.
       const instance = axios.create({
         headers: {
@@ -58,17 +55,20 @@ const FacebookOauth2RedirectHandler = () => {
                   login(response.data.data.access_token);
                   navigate("/");
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                  console.log(error);
+                  navigate("/login");
+                });
             })
             .catch((error) => {
               console.log(error);
+              navigate("/login");
             });
-          navigate("/login");
-        });
-    } else if (error) {
+        })
+        .catch((error) => console.log(error));
+    } else {
       // Xử lý lỗi nếu có
-      console.error("OAuth2 Error:", error);
-      navigate("/social-login-error"); // Chuyển hướng đến trang lỗi nếu cần
+      navigate("/unauthorize"); // Chuyển hướng đến trang lỗi nếu cần
     }
   }, [location, navigate]);
   return (
