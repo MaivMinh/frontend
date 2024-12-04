@@ -6,14 +6,12 @@ function GoogleRedirected() {
     const navigate = useNavigate();
     const { login } = useAppContext();
 
-    const queryParams = new URLSearchParams(window.location.search);
-    const code = queryParams.get("code");
+    const code = `${import.meta.env.VITE_NONCE}`;
 
-    console.log(code);
 
     // fetch with code to backend
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/oauth2/google/${code}`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/oauth2/google?code=${code}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +24,7 @@ function GoogleRedirected() {
             navigate("/");
         })
         .catch((err) => {
-            navigate(`/error/${err.message}`);
+            navigate(`/unauthorize`);
         });
     
 

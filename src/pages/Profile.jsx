@@ -14,6 +14,7 @@ function Profile() {
       setLoading(true);
       fetchWithAuth(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`)
         .then((data) => {
+          console.log(data);
           setUserData(data.data);
           setLoading(false);
         })

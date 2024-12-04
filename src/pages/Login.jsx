@@ -20,13 +20,13 @@ function Login() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.REACT_APP_API_URL}/api/auth/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/login`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ username: email, password: password }),
         }
       );
 
@@ -36,8 +36,7 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log(data);
-      login(data.token);
+      login(data.data.access_token, data.data.refresh_token);
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -91,7 +90,7 @@ function Login() {
     //   const timestampState = Date.now() + '.' + state;
     //   localStorage.setItem('state', timestampState);
 
-    const nonce = crypto.randomUUID();
+    const nonce = `${import.meta.env.NONCE}`;
 
     //sleep
     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${
@@ -124,10 +123,10 @@ function Login() {
             className="flex flex-col space-y-4"
           >
             <div className="text-left">
-              <label className="font-medium text-gray-700">Email:</label>
+              <label className="font-medium text-gray-700">Username:</label>
               <input
-                type="email"
-                name="email"
+                type="text"
+                name="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -159,9 +158,9 @@ function Login() {
               <button onClick={facebookLogin}>
                 <img src={facebook_icon} alt="facebook" className="w-[40px]" />
               </button>
-              <button onClick={redirectGoogleAuthPage}>
+              {/* <button onClick={(redirectGoogleAuthPage)}>
                 <img src={google_icon} alt="google" className="w-[40px]" />
-              </button>
+              </button> */}
             </div>
           </form>
           {error && <p className="mt-4 text-red-500">{error}</p>}

@@ -8,8 +8,9 @@ export const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
     if (token) {
-      login(token);
+      login(token, refreshToken);
     }
   }, []);
 
@@ -32,6 +33,7 @@ export const AppContextProvider = ({ children }) => {
     setJwt(null);
     setIsAuthenticated(false);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
   };
 
   async function fetchWithAuth(url, options = {}) {

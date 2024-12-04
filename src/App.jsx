@@ -15,10 +15,8 @@ import UnauthorizedPage from './pages/Unauthorize';
 const routes = createRoutesFromElements(
   <>
     <Route path="/" element={<Home />} />,
-    
-    <Route path="oauth2">
-      <Route path="google/redirected" element={<GoogleRedirected />}  />
-    </Route>
+    <Route path="/home" element={<Home />} />
+      <Route path="/oauth2/google/redirected" element={<GoogleRedirected />}  />
 
     <Route path="/login" element={<Login />} />,
     <Route path="/register" element={<Register />} />
