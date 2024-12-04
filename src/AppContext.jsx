@@ -5,27 +5,24 @@ export const AppContextProvider = ({ children }) => {
     const [jwt, setJwt] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userData, setUserData] = useState(null);
-    useEffect(() => {
-        const token = localStorage.getItem('accessToken');
-        if (token) {
-            login(token);
-        }
-        console.log('AppContextProvider: ', token)
+    
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+        login(token);
     }
-    , []);
 
-
-    const login = (token) => {
+    const login = (access_token, refresh_token) => {
+        localStorage.setItem('refreshToken', refresh_token);
         //decode token to get user data
-        setJwt(token);
-        const base64Url = token.split('.')[1];
+        setJwt(access_token);
+        const base64Url = access_token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const userData = JSON.parse(atob(base64));
         setUserData(userData);
         console.log('User Data: ', userData)
         setIsAuthenticated(true);
         console.log('Logged In: ', isAuthenticated)
-        localStorage.setItem('accessToken', token);
+        localStorage.setItem('accessToken', access_token);
     };
 
     const logout = () => {
@@ -36,6 +33,7 @@ export const AppContextProvider = ({ children }) => {
     };
     
     async function fetchWithAuth(url, options = {}) {
+        //TODO: handle refresh token
         console.log('Fetch with auth header:', url, options)
         const config = {
             ...options,
@@ -50,7 +48,31 @@ export const AppContextProvider = ({ children }) => {
     
         try {
             const response = await fetch(url, config);
-            if (!response.ok) {
+            if (!response.status === 401) {
+                //get refresh token
+                const refreshToken = localStorage.getItem('refreshToken');
+                if (!refreshToken) {
+                    throw new Error('No refresh token found');
+                }
+                //fetch new access token
+                const response2 = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/refresh?token=${refreshToken}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                if (!response2.ok) {
+                    throw new Error('Failed to refresh token');
+                }
+                const data = await response2.json();
+                login(data.access_token, data.refresh_token);
+                //retry fetch
+                const response3 = await fetch(url, config);
+                if (!response3.ok) {
+                    throw new Error(`HTTP error! Status: ${response3.status}`);
+                }
+                return await response3.json();
+            } else if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return await response.json();

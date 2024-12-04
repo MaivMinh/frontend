@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../AppContext';
 
 function Profile() {
-    const { loggedIn, fetchWithAuth } = useContext(AppContext);
+    const { isAuthenticated, fetchWithAuth } = useContext(AppContext);
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!loggedIn) {
+        if (!isAuthenticated) {
         } else {
             setLoading(true);
             fetchWithAuth(`${process.env.REACT_APP_API_URL}/api/profile`)
@@ -22,7 +22,7 @@ function Profile() {
                     setLoading(false);
                 });
         }
-    }, [loggedIn, navigate]);
+    }, [isAuthenticated, navigate]);
 
     const handleGoBack = () => {
         navigate('/'); // navigates to the previous page
@@ -36,7 +36,7 @@ function Profile() {
             </div>
         );
     }else{
-        if (!loggedIn) {
+        if (!isAuthenticated) {
             return (
                 <div className="max-w-xl mx-auto mt-12 p-10 text-center border border-gray-300 rounded-lg shadow-lg">
                     <h1 className="text-3xl font-bold text-gray-800 mb-6">Profile</h1>
