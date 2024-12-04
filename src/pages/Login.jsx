@@ -58,7 +58,7 @@ function Login() {
     const nonce = crypto.randomUUID();
 
     //sleep
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_CLIENT_URL}/oauth2/google/redirected&nonce=${nonce}`;
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email%20name&client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_CLIENT_URL}/oauth2/google/redirected&nonce=${nonce}`;
 
     // });
   }
