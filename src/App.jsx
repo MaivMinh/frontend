@@ -9,8 +9,10 @@ import Profile from './pages/Profile';
 import { AppContextProvider } from './AppContext';
 import PrivateRoute from './components/PrivateRoute';
 import GoogleRedirected from './components/GoogleRedirected';
+import FacebookOauth2RedirectHandler from "./components/FacebookOauth2RedirectHandler";
+import UnauthorizedPage from './pages/Unauthorize';
 
-const routes = createRoutesFromElements(  
+const routes = createRoutesFromElements(
   <>
     <Route path="/" element={<Home />} />,
     
@@ -20,9 +22,14 @@ const routes = createRoutesFromElements(
 
     <Route path="/login" element={<Login />} />,
     <Route path="/register" element={<Register />} />
-    <Route element={<PrivateRoute />}> 
+    <Route element={<PrivateRoute />}>
       <Route path="/profile" element={<Profile />} />
     </Route>
+    <Route
+      path="/oauth2/facebook/redirect"
+      element={<FacebookOauth2RedirectHandler />}
+    />
+    <Route path='/unauthorize' element={<UnauthorizedPage />} />
   </>
 );
 
