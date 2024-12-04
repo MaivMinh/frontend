@@ -19,10 +19,10 @@ function Login() {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
         method: 'POST',
-        headers: {
+          headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+          },
+          body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
@@ -39,6 +39,38 @@ function Login() {
       setLoading(false);
     }
   };
+
+  function facebookLogin(e) {
+    e.preventDefault();
+    var facebookEndpoint = `${import.meta.env.VITE_FACEBOOK_ENDPOINT}`;
+    // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+    var form = document.createElement("form");
+    form.setAttribute("method", "GET"); // Send as a GET request.
+    form.setAttribute("action", facebookEndpoint);
+
+    // Parameters to pass to OAuth 2.0 endpoint.
+    var params = {
+      client_id: `${import.meta.env.VITE_FACEBOOK_CLIENT_ID}`,
+      redirect_uri: `${import.meta.env.VITE_FACEBOOK_LOGIN_REDIRECT_URL}`,
+      response_type: "code",
+      scope: "public_profile email",
+      include_granted_scopes: "true",
+      state: `${import.meta.env.VITE_FACEBOOK_STATE}`,
+    };
+
+    // Add form parameters as hidden input values.
+    for (var p in params) {
+      var input = document.createElement("input");
+      input.setAttribute("type", "hidden");
+      input.setAttribute("name", p);
+      input.setAttribute("value", params[p]);
+      form.appendChild(input);
+    }
+
+    // Add form to page and submit it to open the OAuth 2.0 endpoint.
+    document.body.appendChild(form);
+    form.submit();
+  }
 
   return (
     <div className="max-w-md mx-auto mt-20 p-6 text-center border border-gray-300 rounded-lg shadow-md">
@@ -84,6 +116,9 @@ function Login() {
               className={loading ? 'cursor-not-allowed px-4 py-2 bg-green-300 text-white font-medium rounded-lg' : 'px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600'}
             >
               Login
+            </button>
+            <button className="w-full mt-4 mb-8" onClick={facebookLogin}>
+              Login with Facebook 🚀
             </button>
           </form>
           {error && <p className="mt-4 text-red-500">{error}</p>}
