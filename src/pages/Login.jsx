@@ -17,7 +17,6 @@ function Login() {
     setLoading(true);
     e.preventDefault();
     setError(null);
-
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/login`,
@@ -93,7 +92,7 @@ function Login() {
     const nonce = `${import.meta.env.NONCE}`;
 
     //sleep
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email%20name&client_id=${
       import.meta.env.VITE_GOOGLE_CLIENT_ID
     }&redirect_uri=${
       import.meta.env.VITE_CLIENT_URL
@@ -151,6 +150,7 @@ function Login() {
                   ? "cursor-not-allowed px-4 py-2 bg-green-300 text-white font-medium rounded-lg"
                   : "px-4 py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600"
               }
+              onClick={handleSubmit}
             >
               Login
             </button>
