@@ -3,61 +3,35 @@ import { useLocation } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import SearchBar from '../components/SearchBar';
 import MovieCard from '../components/MovieCard';
-
+import { queryMovies } from '../apis/movie';
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);
 };
 
-const movies = [
-    {
-        id: 1,
-        title: 'The Shawshank Redemption',
-        year: 1994,
-        poster: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pG49LvH6pcfw6oyhYX5iFEtaHS7.jpg',
-    },
-    {
-        id: 2,
-        title: 'The Godfather',
-        year: 1972,
-        poster: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pG49LvH6pcfw6oyhYX5iFEtaHS7.jpg',
-    },
-    {
-        id: 3,
-        title: 'The Dark Knight',
-        year: 2008,
-        poster: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pG49LvH6pcfw6oyhYX5iFEtaHS7.jpg',
-    },
-    {
-        id: 4,
-        title: 'The Dark Knight',
-        year: 2008,
-        poster: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pG49LvH6pcfw6oyhYX5iFEtaHS7.jpg',
-    },
-    {
-        id: 5,
-        title: 'The Dark Knight',
-        year: 2008,
-        poster: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pG49LvH6pcfw6oyhYX5iFEtaHS7.jpg',
-    },
-    {
-        id: 5,
-        title: 'The Dark Knight',
-        year: 2008,
-        poster: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pG49LvH6pcfw6oyhYX5iFEtaHS7.jpg',
-    },
-];
 
-const Search = () => {
+const SearchPage = () => {
     const query = useQuery();
     const searchTerm = query.get('query');
     const search = (query) => {
         navigate(`/search?query=${query}`);
       };
+
+    const [movies, setMovies] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        queryMovies(searchTerm).then((data) => {
+            setMovies(data?.results || []);
+            setLoading(false);
+        });
+    }
+    , [searchTerm]);    
+
     return (
         <div>
             <SearchBar input={searchTerm} search={search}/>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 pl-4">
+            <div style={containerStyles}>
                 {movies.map((movie) => (
                     <MovieCard key={movie.id} movie={movie} />
                 ))}
@@ -68,4 +42,15 @@ const Search = () => {
     );
 };
 
-export default Search;
+const containerStyles = {
+    display: 'flex',
+    flexWrap: 'wrap', // Wrap items to the next row if needed
+    gap: '16px', // Gap between items
+    paddingLeft: '16px', // Left padding
+    justifyContent: 'flex-start', // Center items horizontally
+    maxWidth: '1200px', // Optional: Limit the maximum width of the container
+    margin: '0 auto', // Center the container itself in the page
+};
+
+
+export default SearchPage;

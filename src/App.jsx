@@ -16,14 +16,14 @@ import GoogleRedirected from "./components/GoogleRedirected";
 import FacebookOauth2RedirectHandler from "./components/FacebookOauth2RedirectHandler";
 import UnauthorizedPage from "./pages/Unauthorize";
 import MainLayout from "./layouts/Main";
-import Search from "./pages/Search";
+import SearchPage from "./pages/Search";
 
 const routes = createRoutesFromElements(
   <>
     <Route path="/" element={<MainLayout />} >
       <Route path="/" element={<Home />} />,
       <Route path="/home" element={<Home />} />
-      <Route path="/search" element={<Search />} />
+      <Route path="/search" element={<SearchPage />} />
       <Route path="/unauthorize" element={<UnauthorizedPage />} />
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
