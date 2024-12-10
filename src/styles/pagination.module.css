@@ -1,0 +1,35 @@
+/* *.module.css files is available only for component that imported them */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+  }
+  
+.paginationBtn {
+    border: 1px solid dodgerblue !important;
+    background-color: white;
+    color: dodgerblue !important;
+    cursor: pointer;
+    border-radius: 50% !important;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 8px;
+    outline: none;
+}
+
+.paginationBtn:disabled {
+    border: 1px solid #f0f0f0 !important;
+    background-color: #f0f0f0 !important;
+    color: #d0d0d0 !important;
+    cursor: not-allowed ;
+}
+
+.paginationInfo {
+    font-size: 16px;
+    color: #666;
+}
