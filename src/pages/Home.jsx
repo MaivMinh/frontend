@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
-import axios from "axios";
 import { instance } from "../config/axios-instance.js";
 import SearchBar from "../components/SearchBar.jsx";
+import Main from "../components/Main.jsx";
+import Row from "../components/Row.jsx";
+import requests from "../apis/request.js";
+import TrendingRow from "../components/TrendingRow.jsx";
 
 function Home() {
   const navigate = useNavigate();
@@ -51,6 +54,11 @@ function Home() {
   return (
     <>
       <SearchBar search={search}/>
+      <Main />
+      <TrendingRow rowID="1" title="Trending" request={requests.Trending} />
+      <Row rowID="2" title="Now Playing" request={requests.NowPlaying} />
+      <Row rowID="3" title="Top Rating" request={requests.TopRated} />
+      <Row rowID="4" title="Up Coming" request={requests.Upcoming} />
     </>
     
   );
