@@ -3,8 +3,8 @@ import React from "react";
 const MovieInfo = ({ info }) => {
   console.log("info", info);
   return (
-    <div className="w-full h-full relative group text-white text-left">
-      <section className="flex m-0 h-screen py-4">
+    <div className="relative text-white text-left">
+      <section className="flex m-2 h-screen py-4">
         <div className="h-full w-[calc(100vh*9/16)] mx-4">
           <img
             className="h-full w-full object-cover rounded-md"
@@ -12,7 +12,7 @@ const MovieInfo = ({ info }) => {
             alt={info?.title}
           />
         </div>
-        <div className="w-2/3 bg-no-repeat bg-contain bg-center opacity-60 text-white">
+        <div className="w-full bg-no-repeat bg-contain bg-center opacity-60 text-white mr-4">
           <img
             className="w-full h-full object-cover object-center"
             src={`https://image.tmdb.org/t/p/original/${info?.backdrop_path}`}

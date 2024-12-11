@@ -21,7 +21,7 @@ const Recomendation = ({ movieId }) => {
       }
     }
     fetchData();
-  }, []);
+  }, [movieId]);
 
   function moveSlideToLeft() {
     let slider = document.getElementById('slider_recomendation');
