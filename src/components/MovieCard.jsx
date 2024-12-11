@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { Link } from "react-router-dom";
 const MovieCard = ({ movie }) => {
   return (
+    
+    <Link to={`/movies/${movie.id}`}>
     <div style={styles.card}>
       <div style={styles.posterWrapper}>
         { movie.poster? 
@@ -16,6 +19,7 @@ const MovieCard = ({ movie }) => {
         <p style={styles.year}>{movie.year}</p>
       </div>
     </div>
+    </Link>
   );
 };
 
