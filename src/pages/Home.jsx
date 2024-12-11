@@ -47,13 +47,9 @@ function Home() {
       });
   };
 
-  const search = (query) => {
-    navigate(`/search?query=${query}`);
-  };
 
   return (
     <>
-      <SearchBar search={search}/>
       <Main />
       <TrendingRow rowID="1" title="Trending" request={requests.Trending} />
       <Row rowID="2" title="Now Playing" request={requests.NowPlaying} />

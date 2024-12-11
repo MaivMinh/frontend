@@ -1,5 +1,5 @@
 
-export async function queryMovies(query, page = 1, language = 'en-US', year = null, primary_release_year = null, region = null, adult = false, ) {
+export async function fetchMovies(query, page = 1, language = 'en-US', year = null, primary_release_year = null, region = null, adult = false, ) {
     
     if (!query) {
         return null;
