@@ -17,23 +17,26 @@ import FacebookOauth2RedirectHandler from "./components/FacebookOauth2RedirectHa
 import UnauthorizedPage from "./pages/Unauthorize";
 import MainLayout from "./layouts/Main";
 import SearchPage from "./pages/Search";
+import MovieDetails from "./pages/MovieDetails/MovieDetails";
 
 const routes = createRoutesFromElements(
   <>
-    <Route path="/" element={<MainLayout />} >
+    <Route path="/" element={<MainLayout />}>
       <Route path="/" element={<Home />} />,
       <Route path="/home" element={<Home />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/movies/:id" element={<MovieDetails />} />
       <Route path="/unauthorize" element={<UnauthorizedPage />} />
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Route>
-
     <Route path="/oauth2/google/redirected" element={<GoogleRedirected />} />
     <Route path="/login" element={<Login />} />,
     <Route path="/register" element={<Register />} />
-    <Route path="/oauth2/facebook/redirect" element={<FacebookOauth2RedirectHandler />}
+    <Route
+      path="/oauth2/facebook/redirect"
+      element={<FacebookOauth2RedirectHandler />}
     />
   </>
 );

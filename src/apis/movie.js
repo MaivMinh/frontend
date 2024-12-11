@@ -50,3 +50,27 @@ export async function queryMovies(query, page = 1, language = 'en-US', year = nu
     console.log("response body: ", data);
     return data;
 }
+
+export async function getMovieDetails(movieId) {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
+    const response = await fetch(url, {
+        headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+        },
+    });
+    const data = await response.json()
+    console.log("get movie details response: ", data);
+    return data;
+}
+
+export async function getRecommendation(movieId) {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${import.meta.env.VITE_TMDB_API_KEY}`;
+    const response = await fetch(url, {
+        headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+        },
+    });
+    const data = await response.json()
+    // console.log("get recomendation response: ", data);
+    return data.results;
+}
