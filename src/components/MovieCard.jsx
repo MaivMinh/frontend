@@ -4,7 +4,12 @@ const MovieCard = ({ movie }) => {
   return (
     <div style={styles.card}>
       <div style={styles.posterWrapper}>
-        <img src={movie.poster} alt={movie.title} style={styles.poster} />
+        { movie.poster? 
+          <img src={movie.poster} style={styles.poster} /> :
+          <div style={{...styles.poster, backgroundColor: '#f5f5f5', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <span style={{color: '#999'}}>No Poster</span>
+          </div>
+        }
       </div>
       <div style={styles.details}>
         <h3 style={styles.title}>{movie.title}</h3>
@@ -27,8 +32,7 @@ const styles = {
   },
   posterWrapper: {
     position: 'relative',
-    width: '100%',
-    height: '330px',
+    height: '20rem',
     overflow: 'hidden',
   },
   poster: {
@@ -42,11 +46,14 @@ const styles = {
     textAlign: 'center',
   },
   title: {
-    fontSize: '18px',
+    fontSize: '1rem',
     margin: '5px 0',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   year: {
-    fontSize: '14px',
+    fontSize: '0.8rem',
     color: '#555',
   },
 };

@@ -1,25 +1,34 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({input = "", search}) => {
-
+const SearchBar = ({input = "", search = useNavigate()}) => {
+    
     const handleClick = () => {
         const searchInput = document.getElementById("search-input");
         if (!searchInput.value) return;
-        search(searchInput.value);
+        //replace " " with "+"
+        const query = searchInput.value.replace(/ /g, "+");
+
+        search(`/search?query=${query}`);
     }
 
 
     return (
-        <div className=" py-2 text-center text-white">
-            <div className="max-w-lg mx-auto flex">
+        <div className="text-center w-1/3 flex bg-white rounded-full ">
+            <div className="w-full flex">
                 <input
                     id="search-input"
                     type="text"
                     defaultValue={input}
-                    placeholder="Search for a movie, tv show, person..."
-                    className="flex-grow px-4 py-2 rounded-l-md text-black border-black border-r-0 border-2"
+                    placeholder="Search for a movie"
+                    className=" px-6 py-2 rounded-full w-5/6 focus:outline-none text-black "
+                    onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                            handleClick();
+                        }
+                    }}
                 />
-                <button onClick={handleClick} className="bg-cyan-400 text-white px-6 py-2 rounded-r-md hover:text-black transition-all">
+                <button onClick={handleClick} className=" text-white px-6 py-2 bg-gradient-to-r from-emerald-400 to-cyan-400  rounded-full hover:text-black transition-all">
                     Search
                 </button>
             </div>
