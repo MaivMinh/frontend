@@ -16,7 +16,7 @@ const Main = () => {
     fetchData();
   }, []);
   return (
-    <div className="main w-[full] h-[450px]">
+    <div className="main w-[full] h-[550px]">
       {movies.length != 0 && <Carousel data={movies} />}
     </div>
   );

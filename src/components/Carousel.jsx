@@ -22,7 +22,7 @@ function Carousel(props) {
     <div className="w-full h-full relative group text-white text-left">
       <div className="w-full h-full absolute bg-gradient-to-r from-black to-pink-500 opacity-50 group"></div>
       <img
-        className="w-full h-full object-fill"
+        className="w-full h-full object-cover"
         src={`https://image.tmdb.org/t/p/original/${movies[index].backdrop_path}`}
         alt={movies[index].title}
       />
